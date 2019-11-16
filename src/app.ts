@@ -1,13 +1,11 @@
-import Koa from 'koa';
-import Router from 'koa-router';
+import express from 'express';
+import authRouter from './routes/auth';
 
-const app = new Koa();
-const router = new Router();
+const app = express();
 
-app.use(async ctx => {
-    ctx.body = 'Hello World';
+app.use('/auth/', authRouter);
+app.get('/', (req, res) => {
+    res.json('Hello world');
 });
 
-export default app
-    .use(router.routes())
-    .use(router.allowedMethods());
+export default app;
