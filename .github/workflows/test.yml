@@ -27,4 +27,4 @@ jobs:
     - run: npm ci
     - run: npm run test
       env:
-        PG_URL: postgresql://user:pass@postgres:5432/postgres 
+        PG_URL: postgresql://user:pass@localhost:5432/postgres 
