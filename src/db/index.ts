@@ -5,8 +5,8 @@ const db = knex(knexFile.development);
 export default db
 
 export async function resetDb() {
-    await db.schema.dropTableIfExists('user');
     await db.schema.dropTableIfExists('password');
+    await db.schema.dropTableIfExists('user');
 
     await db.schema.createTable('user', (table) => {
         table.increments();
