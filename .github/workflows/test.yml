@@ -27,4 +27,4 @@ jobs:
     - run: npm install
     - run: npm run test
       env:
-        PG_URL: postgresql://postgres:pass@postgres:5432/tobenamed 
+        PG_URL: postgresql://postgres:postgres@postgres:5432/tobenamed 
