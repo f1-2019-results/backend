@@ -11,10 +11,10 @@ export async function resetDb() {
         table.increments();
         table.uuid('uid').unique();
         table.string('username').unique().notNullable();
-        table.specificType('created_at', 'TIMESTAMP WITH TIME ZONE');
+        table.specificType('createdAt', 'TIMESTAMP WITH TIME ZONE');
         table.string('email');
-        table.string('password_hash').notNullable();
-        table.string('hash_type').notNullable();
+        table.string('passwordHash').notNullable();
+        table.string('hashType').notNullable();
     });
 
 }
