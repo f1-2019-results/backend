@@ -5,6 +5,8 @@
         "moduleResolution": "node",
         "baseUrl": "src",
         "esModuleInterop": true,
-        "strictNullChecks": true
+        "strictNullChecks": true,
+        "sourceMap": true,
+        "outDir": "build"
     },
 }
