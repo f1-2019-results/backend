@@ -4,5 +4,7 @@
         "module": "commonjs",
         "moduleResolution": "node",
         "baseUrl": "src",
+        "esModuleInterop": true,
+        "strictNullChecks": true
     },
 }
