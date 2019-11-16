@@ -1,3 +1,4 @@
+require('dotenv').config();
 import db, { resetDb } from '../src/db';
 
 before(async function () {
