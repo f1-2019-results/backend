@@ -25,10 +25,11 @@ export async function create(user: Omit<User, 'id' | 'uid' | 'createdAt'>) {
     return newUser;
 }
 
-export async function findOne(filter: Partial<User>, projection: UserProjection = {}) {
+export async function findOne(filter: Partial<User>, projection: UserProjection = {}): Promise<User | undefined> {
     const keys = Object.keys(projection).filter(key => projection[key] === 1);
-    db
+    return db
         .select(keys)
         .where(filter)
-        .from('user');
+        .from('user')
+        .first();
 }
