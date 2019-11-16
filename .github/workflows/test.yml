@@ -25,10 +25,11 @@ jobs:
       with:
         node-version: 12.x
     - run: npm ci
-    - run: npm run coverageText
+    - run: npm run coverage
       env:
         PG_URL: postgresql://user:pass@localhost:5432/postgres 
     - uses: codecov/codecov-action@v1.0.3
       with:
-        token: ${{secrets.CODECOV_TOKEN}}          
+        token: ${{secrets.CODECOV_TOKEN}}
+        file: ./coverage/lcov.info
       
