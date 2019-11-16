@@ -28,3 +28,7 @@ jobs:
     - run: npm run coverageText
       env:
         PG_URL: postgresql://user:pass@localhost:5432/postgres 
+    - uses: codecov/codecov-action@v1.0.3
+      with:
+        token: ${{secrets.CODECOV_TOKEN}}          
+      
