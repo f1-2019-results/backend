@@ -11,8 +11,8 @@ jobs:
       postgres:
         image: postgres:12
         env:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
+          POSTGRES_USER: user
+          POSTGRES_PASSWORD: pass
           POSTGRES_DB: postgres
         ports:
         - 5432:5432
@@ -27,4 +27,4 @@ jobs:
     - run: npm ci
     - run: npm run test
       env:
-        PG_URL: postgresql://postgres@postgres:5432/postgres 
+        PG_URL: postgresql://user:pass@postgres:5432/postgres 
