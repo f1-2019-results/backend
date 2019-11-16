@@ -9,8 +9,7 @@
     "lint": "eslint ./src/**/*.ts",
     "lintfix": "eslint ./src/**/*.ts --fix",
     "test": "mocha -r ts-node/register test/**/*.ts --exit",
-    "coverage": "tsc && nyc --reporter=text --reporter=html mocha",
-    "coverageText": "tsc && nyc --reporter=text mocha"
+    "coverage": "tsc && nyc --reporter=text --reporter=html --reporter=lcov mocha"
   },
   "repository": {
     "type": "git",
