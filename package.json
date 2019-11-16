@@ -8,7 +8,7 @@
     "build": "tsc ./src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint ./src/**/*.ts",
-    "lintfix": "eslint . --fix"
+    "lintfix": "eslint ./src/**/*.ts --fix"
   },
   "repository": {
     "type": "git",
@@ -20,7 +20,17 @@
     "url": "https://github.com/FINDarkside/tobenamed-backend/issues"
   },
   "homepage": "https://github.com/FINDarkside/tobenamed-backend#readme",
+  "dependencies": {
+    "@types/pg": "^7.11.2",
+    "knex": "^0.20.2",
+    "koa": "^2.11.0",
+    "koa-router": "^7.4.0",
+    "pg": "^7.12.1"
+  },
   "devDependencies": {
+    "@types/knex": "^0.16.1",
+    "@types/koa": "^2.0.52",
+    "@types/koa-router": "^7.0.42",
     "@types/node": "^12.12.7",
     "@typescript-eslint/eslint-plugin": "^2.7.0",
     "@typescript-eslint/parser": "^2.7.0",
