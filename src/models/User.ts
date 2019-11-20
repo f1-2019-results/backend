@@ -21,7 +21,7 @@ export async function create(user: Omit<User, 'id' | 'uid' | 'createdAt'>) {
         ...user,
     };
 
-    const res = await db('user').insert(newUser);
+    await db('user').insert(newUser);
     return newUser;
 }
 

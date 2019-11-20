@@ -20,7 +20,7 @@ authRouter.post('/register', async (req, res, next) => {
     const { value, error } = joi.validate(req.body, registerReqValidator);
     if (error)
         return next(new Error(error.message));
-    const body = <RegisterBody>value;
+    const body = value as RegisterBody;
 
     const existingUser = await User.findOne({ username: body.username });
     if (existingUser)
