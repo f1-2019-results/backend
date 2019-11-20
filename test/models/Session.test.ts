@@ -1,4 +1,3 @@
-import request from 'supertest';
 import * as Session from '../../src/models/Session';
 import * as User from '../../src/models/User';
 import { expect } from '../_index';
@@ -30,31 +29,34 @@ describe('Session', () => {
                 .should.eventually.haveOwnProperty('id')
                 .which.is.a('string');
         });
+    });
 
-        it('findOne returns correct session', async () => {
+    describe('findOne', () => {
+        it('returns correct session', async () => {
             const session = await Session.create(exampleSession());
             await Session.findOne(session.id)
                 .should.eventually.eql(session);
         });
+    });
 
-        it('deleteOne deletes correct session', async () => {
+    describe('deleteOne', () => {
+        it('deletes correct session', async () => {
             const session = await Session.create(exampleSession());
             await Session.removeOne(session.id);
             await Session.findOne(session.id)
                 .should.eventually.be.undefined;
         });
 
-        it('deleteOne returns false if session with given key does not exist', async () => {
+        it('returns false if session with given key does not exist', async () => {
             await Session.removeOne('keyDoesNotExist')
                 .should.eventually.be.false;
         });
 
-        it('deleteOne returns true if session to delete exists', async () => {
+        it('returns true if session to delete exists', async () => {
             const session = await Session.create(exampleSession());
             await Session.removeOne(session.id)
                 .should.eventually.be.true;
         });
     });
-
 
 });
