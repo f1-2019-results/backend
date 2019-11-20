@@ -14,15 +14,15 @@ type UserProjection = {
     [key in keyof User]?: 0 | 1;
 }
 
-export async function create(user: Omit<User, 'id' | 'uid' | 'createdAt'>) {
+export async function create(user: Omit<User, 'id' | 'uid' | 'createdAt'>): Promise<User> {
     const newUser: Omit<User, 'id'> = {
         uid: uuid.v4(),
         createdAt: new Date(),
         ...user,
     };
 
-    await db('user').insert(newUser);
-    return newUser;
+    const ids = await db('user').insert(newUser, 'id');
+    return { ...newUser, id: ids[0] };
 }
 
 export async function findOne(filter: Partial<User>, projection: UserProjection = {}): Promise<User | undefined> {
