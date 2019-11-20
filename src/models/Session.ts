@@ -14,8 +14,8 @@ export async function create(sessionData: Omit<Session, 'id'>) {
     const sessionToken = await crypto.randomBytes(config.sessionTokenBytes).toString('base64');
 
     const session: Session = {
-        id: sha256(sessionToken),
         ...sessionData,
+        id: sha256(sessionToken),
     };
 
     await db('session').insert(session);
