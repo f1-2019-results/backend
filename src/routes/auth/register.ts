@@ -1,9 +1,6 @@
-import express from 'express';
 import joi from 'joi';
 import bcrypt from 'bcrypt';
-import * as User from '../models/User';
-
-const authRouter = express.Router();
+import * as User from '../../models/User';
 
 interface RegisterBody {
     username: string;
@@ -16,7 +13,7 @@ const registerReqValidator = joi.object().keys({
     password: joi.string().min(6),
 }).strict().options({ abortEarly: false, presence: 'required', });
 
-authRouter.post('/register', async (req, res, next) => {
+export default async function registerUser(req, res, next) {
     const { value, error } = joi.validate(req.body, registerReqValidator);
     if (error)
         return next(new Error(error.message));
@@ -34,10 +31,4 @@ authRouter.post('/register', async (req, res, next) => {
     delete user.passwordHash;
     delete user.hashType;
     res.json(user);
-});
-
-authRouter.post('/login', (req, res) => {
-
-});
-
-export default authRouter;
+};
