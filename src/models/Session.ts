@@ -26,14 +26,15 @@ export async function create(sessionData: Omit<Session, 'id'>) {
 }
 
 export async function findOne(id: string, projection: Projection<Session> = {}): Promise<Session | undefined> {
-    let keys = Object.keys(projection).filter(key => projection[key] === 1);
-    const sessions: Session[] = await db('session')
+    const keys = Object.keys(projection).filter(key => projection[key] === 1);
+    const session: Session = await db('session')
         .select(keys)
         .where({ id: sha256(id) })
-    if (sessions.length === 0)
+        .first();
+    if (!session)
         return undefined;
     return {
-        ...sessions[0],
+        ...session,
         id: id,
     }
 }
