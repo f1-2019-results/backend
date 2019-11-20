@@ -26,18 +26,23 @@ export async function create(sessionData: Omit<Session, 'id'>) {
 }
 
 export async function findOne(id: string, projection: Projection<Session> = {}): Promise<Session | undefined> {
-    const keys = Object.keys(projection).filter(key => projection[key] === 1);
-    return db
+    let keys = Object.keys(projection).filter(key => projection[key] === 1);
+    const sessions: Session[] = await db('session')
         .select(keys)
         .where({ id: sha256(id) })
-        .from('session')
-        .first();
+    if (sessions.length === 0)
+        return undefined;
+    return {
+        ...sessions[0],
+        id: id,
+    }
 }
 
 export async function removeOne(id: string): Promise<boolean> {
-    const r = await db.where({ id: sha256(id) })
+    const deleteCount = await db('session')
+        .where({ id: sha256(id) })
         .delete();
-    return r === 1;
+    return deleteCount === 1;
 }
 
 function sha256(s: string) {
