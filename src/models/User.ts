@@ -1,7 +1,8 @@
 import db from '../db';
 import uuid from 'uuid';
+import Projection from './Projection';
 
-export interface User {
+export interface UserData {
     id: number;
     uid: string;
     createdAt: Date;
@@ -10,12 +11,9 @@ export interface User {
     passwordHash: string;
     hashType: string;
 }
-type UserProjection = {
-    [key in keyof User]?: 0 | 1;
-}
 
-export async function create(user: Omit<User, 'id' | 'uid' | 'createdAt'>): Promise<User> {
-    const newUser: Omit<User, 'id'> = {
+export async function create(user: Omit<UserData, 'id' | 'uid' | 'createdAt'>): Promise<UserData> {
+    const newUser: Omit<UserData, 'id'> = {
         uid: uuid.v4(),
         createdAt: new Date(),
         ...user,
@@ -25,11 +23,10 @@ export async function create(user: Omit<User, 'id' | 'uid' | 'createdAt'>): Prom
     return { ...newUser, id: ids[0] };
 }
 
-export async function findOne(filter: Partial<User>, projection: UserProjection = {}): Promise<User | undefined> {
-    const keys = Object.keys(projection).filter(key => projection[key] === 1);
-    return db
+export async function findOne(filter: Partial<UserData>, projection: Projection<UserData> = {}): Promise<UserData | undefined> {
+    const keys = Object.keys(projection);
+    return db('user')
         .select(keys)
         .where(filter)
-        .from('user')
         .first();
 }
