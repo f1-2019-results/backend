@@ -15,7 +15,6 @@ export async function resetDb() {
         table.specificType('createdAt', 'TIMESTAMP WITH TIME ZONE');
         table.string('email');
         table.string('passwordHash').notNullable();
-        table.string('hashType').notNullable();
     });
 
     await db.schema.createTable('session', (table) => {

@@ -5,7 +5,6 @@ describe('User', () => {
     const exampleUser = () => ({
         createdAt: new Date(),
         email: 'asd@asd.com',
-        hashType: 'bcrypt',
         passwordHash: 'asdasd',
         uid: 'e1755d95-144b-4f3a-a467-59540dedfa4f',
         username: 'Matti',

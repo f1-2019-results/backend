@@ -5,7 +5,7 @@ import * as Session from '../../models/Session';
 import config from '../../config';
 import { ValidationError } from '../../errors';
 import asyncRequestHandler from '../../util/asyncRequestHandler';
-import { Request, Response, NextFunction } from 'express';
+import { Request, Response } from 'express';
 
 interface RegisterBody {
     username: string;
@@ -30,10 +30,8 @@ export default asyncRequestHandler(async (req: Request, res: Response) => {
         username: body.username,
         email: 'test',
         passwordHash: await bcrypt.hash(body.password, config.bcryptWorkFactor),
-        hashType: 'bcrypt',
     });
     delete user.passwordHash;
-    delete user.hashType;
 
     const session = await Session.create({
         createdAt: new Date(),

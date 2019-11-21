@@ -8,10 +8,8 @@ describe('Session', () => {
     beforeEach(async () => {
         const user = await User.create({
             username: 'test',
-            hashType: 'bcrypt',
             email: 'asd',
             passwordHash: 'asd',
-
         });
         userId = user.id;
     })

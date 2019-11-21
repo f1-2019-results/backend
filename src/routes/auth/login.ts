@@ -25,7 +25,6 @@ export default asyncRequestHandler(async (req: Request, res: Response) => {
     const user = await User.findOne({ username: body.username });
     if (!user)
         return res.status(403).json({ error: 'User does not exist' });
-    // TODO: read user.hashType
     if (!await bcrypt.compare(body.password, user.passwordHash))
         return res.status(403).json({ error: 'Incorrect password' });
 

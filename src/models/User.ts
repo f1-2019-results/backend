@@ -9,7 +9,6 @@ export interface UserData {
     username: string;
     email: string;
     passwordHash: string;
-    hashType: string;
 }
 
 export async function create(user: Omit<UserData, 'id' | 'uid' | 'createdAt'>): Promise<UserData> {
