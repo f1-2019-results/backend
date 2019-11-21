@@ -28,7 +28,7 @@ export default async function loginUser(req: Request, res: Response, next: NextF
     if (!await bcrypt.compare(body.password, user.passwordHash))
         return res.status(403).json({ error: 'Incorrect password' });
 
-    const session = Session.create({
+    const session = await Session.create({
         createdAt: new Date(),
         expiresAt: new Date(Date.now() + config.defaultSessionLength),
         userId: user.id,
