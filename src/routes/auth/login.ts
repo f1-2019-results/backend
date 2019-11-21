@@ -4,6 +4,7 @@ import bcrypt from 'bcrypt';
 import * as User from '../../models/User';
 import * as Session from '../../models/Session';
 import config from '../../config';
+import asyncRequestHandler from '../../util/asyncRequestHandler';
 
 interface LoginBody {
     username: string;
@@ -15,10 +16,10 @@ const loginBodyValidator = joi.object().keys({
     password: joi.string(),
 }).strict().options({ abortEarly: false, presence: 'required', });
 
-export default async function loginUser(req: Request, res: Response, next: NextFunction) {
+export default asyncRequestHandler(async (req: Request, res: Response) => {
     const { value, error } = joi.validate(req.body, loginBodyValidator);
     if (error)
-        return next(new Error(error.message));
+        throw new Error(error.message);
     const body = value as LoginBody;
 
     const user = await User.findOne({ username: body.username });
@@ -38,4 +39,4 @@ export default async function loginUser(req: Request, res: Response, next: NextF
             session,
         }
     });
-};
+});

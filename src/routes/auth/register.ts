@@ -4,6 +4,8 @@ import * as User from '../../models/User';
 import * as Session from '../../models/Session';
 import config from '../../config';
 import { ValidationError } from '../../errors';
+import asyncRequestHandler from '../../util/asyncRequestHandler';
+import { Request, Response, NextFunction } from 'express';
 
 interface RegisterBody {
     username: string;
@@ -15,15 +17,15 @@ const registerReqValidator = joi.object().keys({
     password: joi.string().min(config.user.minPasswordLength),
 }).strict().options({ abortEarly: false, presence: 'required', });
 
-export default async function registerUser(req, res, next) {
+export default asyncRequestHandler(async (req: Request, res: Response) => {
     const { value, error } = joi.validate(req.body, registerReqValidator);
     if (error)
-        return next(new ValidationError(error.message));
+        throw new ValidationError(error.message);
     const body = value as RegisterBody;
 
     const existingUser = await User.findOne({ username: body.username });
     if (existingUser)
-        return next(new Error(`Username already in use`));
+        throw new Error(`Username already in use`);
     const user = await User.create({
         username: body.username,
         email: 'test',
@@ -44,4 +46,4 @@ export default async function registerUser(req, res, next) {
             session
         }
     });
-};
+});
