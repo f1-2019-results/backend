@@ -1,7 +1,6 @@
 import request from 'supertest';
 import bcrypt from 'bcrypt';
 import app from '../../../src/app';
-import login from '../../../src/routes/auth/login';
 import * as User from '../../../src/models/User';
 import { expect } from '../../_index';
 
@@ -24,7 +23,7 @@ describe('login action', () => {
 
     it('returns session with valid credentials', async () => {
         const res = await request(app)
-            .post('/api/auth/login')
+            .post('/auth/login')
             .send({
                 username,
                 password,
@@ -39,7 +38,7 @@ describe('login action', () => {
 
     it('fails with HTTP 403 with incorrect username', async () => {
         await request(app)
-            .post('/api/auth/login')
+            .post('/auth/login')
             .send({
                 username: 'JokuUser',
                 password,
@@ -49,7 +48,7 @@ describe('login action', () => {
 
     it('fails with HTTP 403 with incorrect password', async () => {
         await request(app)
-            .post('/api/auth/login')
+            .post('/auth/login')
             .send({
                 username,
                 password: 'hunter3',

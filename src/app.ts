@@ -5,7 +5,7 @@ import { errorHandler } from './util/middleware';
 
 const app = express();
 app.use(bodyParser.json());
-app.use('/api/auth', authRouter);
+app.use('/auth', authRouter);
 app.get('/', (req, res) => {
     res.json('Hello world');
 });

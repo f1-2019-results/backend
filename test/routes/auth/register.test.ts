@@ -45,7 +45,7 @@ describe('register action', () => {
 
     function register(data) {
         return request(app)
-            .post('/api/auth/register')
+            .post('/auth/register')
             .send(data);
     }
 
