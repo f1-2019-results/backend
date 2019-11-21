@@ -3,7 +3,8 @@ import config from '../src/config';
 import db, { resetDb } from '../src/db';
 import chai from 'chai';
 import chaiAsPromised from 'chai-as-promised';
-chai.should();
+const should = chai.should();
+const expect = chai.expect;
 chai.use(chaiAsPromised);
 
 before(async function () {
@@ -27,7 +28,7 @@ beforeEach(async function () {
     Object.assign(config, defaultConfig);
 });
 
-const expect = chai.expect;
 export {
     expect,
+    should
 };

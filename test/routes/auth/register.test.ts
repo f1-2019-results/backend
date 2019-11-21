@@ -12,17 +12,19 @@ describe('register action', () => {
             .expect(200);
     });
 
-    it('returns session with valid data', async () => {
+    it('returns session and user with valid data', async () => {
         const res = await register({
             username: 'MattiMinä',
             password: 'teasdkjdsa'
         })
             .expect(200);
-        const session = res.body.data.shouldHaveOwnProperty('session') as object;
-        session.should.haveOwnProperty('id');
-        session.should.haveOwnProperty('expiresAt');
-        const user = res.body.data.shouldHaveOwnPropert('user') as object;
-        user.should.haveOwnProperty('uid');
+        res.body.should.haveOwnProperty('data');
+        const data = res.body.data;
+        data.should.haveOwnProperty('session');
+        data.session.should.haveOwnProperty('id');
+        data.session.should.haveOwnProperty('expiresAt');
+        data.should.haveOwnProperty('user');
+        data.user.should.haveOwnProperty('uid');
     });
 
     it('returns HTTP 400 with too short username', async () => {
