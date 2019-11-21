@@ -1,6 +1,7 @@
 import joi from 'joi';
 import bcrypt from 'bcrypt';
 import * as User from '../../models/User';
+import config from '../../config';
 
 interface RegisterBody {
     username: string;
@@ -8,9 +9,8 @@ interface RegisterBody {
 }
 
 const registerReqValidator = joi.object().keys({
-    username: joi.string(),
-    // TODO: Config
-    password: joi.string().min(6),
+    username: joi.string().min(config.user.minUsernameLength),
+    password: joi.string().min(config.user.minPasswordLength),
 }).strict().options({ abortEarly: false, presence: 'required', });
 
 export default async function registerUser(req, res, next) {
@@ -25,7 +25,7 @@ export default async function registerUser(req, res, next) {
     const user = await User.create({
         username: body.username,
         email: 'test',
-        passwordHash: await bcrypt.hash(body.password, 10),
+        passwordHash: await bcrypt.hash(body.password, config.bcryptWorkFactor),
         hashType: 'bcrypt',
     });
     delete user.passwordHash;
