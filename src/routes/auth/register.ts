@@ -1,7 +1,9 @@
 import joi from 'joi';
 import bcrypt from 'bcrypt';
 import * as User from '../../models/User';
+import * as Session from '../../models/Session';
 import config from '../../config';
+import { ValidationError } from '../../errors';
 
 interface RegisterBody {
     username: string;
@@ -16,7 +18,7 @@ const registerReqValidator = joi.object().keys({
 export default async function registerUser(req, res, next) {
     const { value, error } = joi.validate(req.body, registerReqValidator);
     if (error)
-        return next(new Error(error.message));
+        return next(new ValidationError(error.message));
     const body = value as RegisterBody;
 
     const existingUser = await User.findOne({ username: body.username });
@@ -30,5 +32,16 @@ export default async function registerUser(req, res, next) {
     });
     delete user.passwordHash;
     delete user.hashType;
-    res.json(user);
+
+    const session = await Session.create({
+        createdAt: new Date(),
+        expiresAt: new Date(Date.now() + config.defaultSessionLength),
+        userId: user.id,
+    });
+    res.json({
+        data: {
+            user,
+            session
+        }
+    });
 };
