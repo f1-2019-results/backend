@@ -25,6 +25,8 @@ const defaultConfig: Partial<typeof config> = {
 
 beforeEach(async function () {
     await resetDb();
+    await db('game').insert({ name: 'F1 2019' });
+    await db('track').insert({ name: 'Monaco' });
     Object.assign(config, defaultConfig);
 });
 
