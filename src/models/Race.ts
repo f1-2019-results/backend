@@ -4,16 +4,16 @@ interface RaceData {
     track: {
         id: number;
         name: string;
-    }
+    };
     game: {
         name: string;
-    }
+    };
     startTime: Date;
     results: Array<{
         driver: {
             id: number;
             name: string;
-        }
+        };
         position: number;
         points: number;
         laps: Array<{
@@ -22,7 +22,7 @@ interface RaceData {
             sector3: number;
             invalid: boolean;
         }>;
-    }>
+    }>;
 };
 
 interface RaceInsertData {
@@ -33,7 +33,7 @@ interface RaceInsertData {
         driver: {
             name: string;
             isAi: boolean;
-        }
+        };
         position: number;
         points: number;
         laps: Array<{
@@ -42,7 +42,7 @@ interface RaceInsertData {
             sector3: number;
             invalid: boolean;
         }>;
-    }>
+    }>;
 };
 
 export async function create(data: RaceInsertData) {
