@@ -60,6 +60,7 @@ export async function resetDb() {
 
         await db.schema.createTable('raceLap', (table) => {
             table.increments();
+            table.integer('lapNum');
             table.integer('raceId').notNullable().references('id').inTable('race');
             table.integer('driverId').notNullable().references('id').inTable('raceDriver');
             table.float('sector1');

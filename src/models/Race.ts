@@ -72,9 +72,10 @@ export async function create(data: RaceInsertData) {
         await trx('raceLap').insert(
             data.results.reduce((prev, curr, i) => {
                 return prev.concat(
-                    curr.laps.map(lap => ({
+                    curr.laps.map((lap, lapNum) => ({
                         raceId,
                         driverId: driverIds[i],
+                        lapNum,
                         ...lap,
                     }))
                 );
