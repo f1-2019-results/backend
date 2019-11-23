@@ -18,7 +18,7 @@ describe('Race', () => {
         await Race.create({
             game: 'F1 2019',
             startTime: new Date(),
-            trackId: 0,
+            trackId: 1,
             results: [
                 {
                     driver: {
