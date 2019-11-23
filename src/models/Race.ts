@@ -47,17 +47,20 @@ interface RaceInsertData {
 
 export async function create(data: RaceInsertData) {
     await db.transaction(async (trx) => {
+        
         const raceId = (await trx('race').insert({
             trackId: data.trackId,
             startTime: data.startTime,
             gameId: trx('game').select('id').where({ name: data.game }),
-        }, ['id']))[0];
+        }, ['id']))[0].id;
+        
         const driverIds = (await trx('raceDriver').insert(
             data.results.map(r => ({
                 name: r.driver.name,
                 isAi: r.driver.isAi,
-            }))
-        ), ['id'])[0];
+            })), ['id'])
+        ).map(r => r.id);
+
         await trx('raceResult').insert(
             data.results.map((r, i) => ({
                 raceId,
@@ -71,6 +74,7 @@ export async function create(data: RaceInsertData) {
                 return prev.concat(
                     curr.laps.map(lap => ({
                         raceId,
+                        driverId: driverIds[i],
                         ...lap,
                     }))
                 );
