@@ -126,7 +126,7 @@ export async function findOne(id: number): Promise<undefined | RaceData> {
             },
             position: rr.position,
             points: rr.points,
-            laps: new Array(),
+            laps: [] as any[],
         })),
     };
     let resultId = 0;
