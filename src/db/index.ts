@@ -38,6 +38,7 @@ export async function resetDb() {
 
         await db.schema.createTable('race', (table) => {
             table.increments();
+            table.integer('gameId').notNullable().references('id').inTable('game');
             table.integer('trackId').notNullable().references('id').inTable('track');
             table.specificType('startTime', 'TIMESTAMP WITH TIME ZONE').notNullable();
         });
