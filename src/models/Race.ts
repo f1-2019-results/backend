@@ -13,6 +13,7 @@ interface RaceData {
         driver: {
             id: number;
             name: string;
+            isAi: boolean;
         };
         position: number;
         points: number;
@@ -47,13 +48,13 @@ interface RaceInsertData {
 
 export async function create(data: RaceInsertData) {
     await db.transaction(async (trx) => {
-        
+
         const raceId = (await trx('race').insert({
             trackId: data.trackId,
             startTime: data.startTime,
             gameId: trx('game').select('id').where({ name: data.game }),
         }, ['id']))[0].id;
-        
+
         const driverIds = (await trx('raceDriver').insert(
             data.results.map(r => ({
                 name: r.driver.name,
@@ -82,4 +83,64 @@ export async function create(data: RaceInsertData) {
             }, [] as any)
         );
     });
+}
+
+export async function findOne(id: number): Promise<undefined | RaceData> {
+    const [raceData, raceResults, raceLaps] = await Promise.all([
+        db('race')
+            .select(['race.*', 'game.id AS gameId', 'game.name AS gameName', 'track.name AS trackName', 'track.id AS trackid'])
+            .where({ 'race.id': id })
+            .join('game', 'game.id', 'gameId')
+            .join('track', 'track.id', 'trackId')
+            .first(),
+        db('raceResult')
+            .select('*')
+            .where({ raceId: id })
+            .join('raceDriver', 'raceDriver.id', 'driverId')
+            .orderBy('raceDriver.id'),
+        db('raceLap')
+            .select('*')
+            .where({ raceId: id })
+            .orderBy('driverId')
+            .orderBy('lapNum')
+    ]);
+    console.log({
+        race: raceData, raceResults, raceLaps
+    })
+    if (!raceData)
+        return undefined;
+    const race = {
+        game: {
+            name: raceData.gameName,
+        },
+        startTime: raceData.startTime,
+        track: {
+            id: raceData.trackId,
+            name: raceData.trackName,
+        },
+        results: raceResults.map(rr => ({
+            driver: {
+                id: rr.driverId,
+                name: rr.name,
+                isAi: rr.isAi,
+            },
+            position: rr.position,
+            points: rr.points,
+            laps: new Array(),
+        })),
+    };
+    let resultId = 0;
+    for (const lap of raceLaps) {
+        if (lap.driverId !== race.results[resultId].driver.id) {
+            resultId++;
+            continue;
+        }
+        race.results[resultId].laps.push({
+            sector1: lap.sector1,
+            sector2: lap.sector2,
+            sector3: lap.sector3,
+            invalid: lap.invalid,
+        });
+    }
+    return race;
 }
