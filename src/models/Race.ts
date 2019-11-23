@@ -50,6 +50,7 @@ export async function create(data: RaceInsertData) {
         const raceId = (await trx('race').insert({
             trackId: data.trackId,
             startTime: data.startTime,
+            gameId: trx('game').select('id').where({ name: data.game }),
         }, ['id']))[0];
         const driverIds = (await trx('raceDriver').insert(
             data.results.map(r => ({
