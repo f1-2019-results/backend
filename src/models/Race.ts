@@ -46,7 +46,7 @@ interface RaceInsertData {
 };
 
 export async function create(data: RaceInsertData) {
-    db.transaction(async (trx) => {
+    await db.transaction(async (trx) => {
         const raceId = (await trx('race').insert({
             trackId: data.trackId,
             startTime: data.startTime,
