@@ -1,5 +1,5 @@
 import db from '../db';
-import uuid from 'uuid';
+import * as uuid from 'uuid';
 import Projection from './Projection';
 
 export interface UserData {

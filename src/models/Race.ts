@@ -24,7 +24,7 @@ interface RaceData {
             invalid: boolean;
         }>;
     }>;
-};
+}
 
 interface RaceInsertData {
     trackId: number;
@@ -44,7 +44,7 @@ interface RaceInsertData {
             invalid: boolean;
         }>;
     }>;
-};
+}
 
 export async function create(data: RaceInsertData) {
     await db.transaction(async (trx) => {
