@@ -35,7 +35,7 @@ export async function resetDb(): Promise<void> {
     });
 }
 
-export async function initDb() {
+export async function initDb(): Promise<void> {
     console.log(process.env.PG_URL);
     const connection = await createConnection({
         type: 'postgres',

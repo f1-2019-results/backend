@@ -1,7 +1,6 @@
 import joi from 'joi';
-import { Request, Response, NextFunction } from 'express';
+import { Request, Response } from 'express';
 import bcrypt from 'bcrypt';
-import User from '../../models/User';
 import Session from '../../models/Session';
 import config from '../../config';
 import asyncRequestHandler from '../../util/asyncRequestHandler';

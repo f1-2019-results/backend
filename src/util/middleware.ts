@@ -1,14 +1,16 @@
 import { ValidationError, AuthenticationError } from '../errors';
+import { Request, Response, NextFunction } from 'express';
 
-export function errorHandler(error, request, response, next) {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export function errorHandler(error: Error, request: Request, response: Response, next: NextFunction): void {
     if (process.env.NODE_ENV !== 'test')
         console.error(error.message);
     if (!error)
-        return response.status(500);
-    if (error instanceof ValidationError)
-        return response.status(400).send({ error: error.message });
+        response.status(500);
+    else if (error instanceof ValidationError)
+        response.status(400).send({ error: error.message });
     else if (error instanceof AuthenticationError)
-        return response.status(403).send({ error: error.message });
-
-    return response.status(500).send({ error: error.message });
+        response.status(403).send({ error: error.message });
+    else
+        response.status(500).send({ error: error.message });
 }
