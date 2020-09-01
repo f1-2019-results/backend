@@ -7,19 +7,19 @@ export class RaceResult {
 
     @PrimaryGeneratedColumn()
     id: number;
-    @Column('number', { nullable: false })
+    @Column('number')
     lapnum: number;
-    @Column('double precision', { nullable: false, array: true })
+    @Column('double precision', { array: true })
     sectors: number[];
-    @Column('double precision', { nullable: true, default: null })
+    @Column('double precision', { nullable: true })
     laptime: number | null = null;
-    @Column('boolean', { nullable: false })
+    @Column('boolean')
     invalid: boolean;
 
-    @ManyToOne(() => Race, race => race.results, { nullable: false })
-    race: Race;
+    @ManyToOne(() => Race, race => race.results)
+    race?: Race;
     @ManyToOne(() => User, { nullable: true })
-    user?: User | null = null;
+    user?: User | null;
 
 
     constructor(data?: RaceResult) {

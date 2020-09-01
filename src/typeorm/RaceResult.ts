@@ -9,17 +9,17 @@ export class RaceResult {
 
     @PrimaryGeneratedColumn()
     id: number;
-    @Column({ type: 'string', nullable: false })
+    @Column({ type: 'string' })
     driverName: string;
-    @Column({ type: 'boolean', nullable: false })
+    @Column({ type: 'boolean' })
     isAi: boolean;
-    @Column('number', { nullable: false })
+    @Column('number')
     position: number;
-    @Column('number', { nullable: false })
+    @Column('number')
     points: number;
 
     @ManyToOne(() => Race, race => race.results)
-    race: Race;
+    race?: Race;
     @ManyToOne(() => User)
     user?: User;
 

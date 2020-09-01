@@ -10,7 +10,7 @@ export class Game {
     name: string;
 
     @OneToMany(() => Race, race => race.game)
-    races: Race[];
+    races?: Race[];
 
     constructor(data?: { name: string }) {
         if (data) {

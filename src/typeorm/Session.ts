@@ -13,7 +13,7 @@ export class Session {
     expiresAt: Date;
 
     @ManyToOne(() => User, user => user.id)
-    user: User;
+    user?: User;
 
     constructor(data?: { expiresAt: Date }) {
         if (data) {

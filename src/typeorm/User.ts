@@ -9,17 +9,17 @@ export class User {
     id: number;
     @Column('uuid')
     uid: string;
-    @Column({ type: 'string', nullable: false })
+    @Column({ type: 'string' })
     username: string;
     @Column('string')
     email: string;
-    @Column({ type: 'string', nullable: false, select: false })
+    @Column({ type: 'string', select: false })
     passwordHash: string;
-    @Column({ type: 'date', nullable: false })
+    @Column({ type: 'date' })
     createdAt: Date;
 
     @OneToMany(() => Session, session => session.user)
-    sessions: Session[];
+    sessions?: Session[];
 
     constructor(data?: { username: string, email: string, passwordHash: string }) {
         if (data) {

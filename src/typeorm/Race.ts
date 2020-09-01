@@ -9,17 +9,17 @@ export class Race {
 
     @PrimaryGeneratedColumn()
     id: number;
-    @Column({ type: 'uuid', nullable: false })
+    @Column('uuid')
     uid: string;
     @Column('date')
     startTime: Date;
 
     @ManyToOne(() => Track, track => track.races)
-    track: Track;
+    track?: Track;
     @ManyToOne(() => Game, game => game.races)
-    game: Game;
+    game?: Game;
     @OneToMany(() => RaceResult, result => result.race)
-    results: RaceResult[];
+    results?: RaceResult[];
 
     constructor(data?: {
         startTime: Date,

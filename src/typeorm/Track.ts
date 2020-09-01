@@ -7,13 +7,13 @@ export class Track {
 
     @PrimaryGeneratedColumn()
     id: number;
-    @Column({ type: 'uuid', nullable: false })
+    @Column({ type: 'uuid' })
     uid: string;
-    @Column({ type: 'string', nullable: false })
+    @Column({ type: 'string' })
     name: string;
 
     @OneToMany(() => Race, race => race.track)
-    races: Race[];
+    races?: Race[];
 
     constructor(data?: { name: string }) {
         if (data) {
