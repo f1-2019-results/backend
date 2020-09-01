@@ -1,51 +1,29 @@
-import db from '../db';
-import Projection from './Projection';
-import crypto from 'crypto';
-import config from '../config';
+import { Entity, Column, ManyToOne } from 'typeorm';
+import { v4 as uuidv4 } from 'uuid';
+import User from './User';
 
-export interface Session {
+@Entity()
+export default class Session {
+
+    @Column({ type: 'uuid', primary: true })
     id: string;
-    userId: number;
+    @Column('date')
     createdAt: Date;
+    @Column('date')
     expiresAt: Date;
-}
 
-export async function create(sessionData: Omit<Session, 'id'>) {
-    const sessionToken = await crypto.randomBytes(config.sessionTokenBytes).toString('base64');
+    @Column()
+    userId: number;
 
-    const session: Session = {
-        ...sessionData,
-        id: sha256(sessionToken),
-    };
+    @ManyToOne(() => User, user => user.id)
+    user?: User;
 
-    await db('session').insert(session);
-    return {
-        ...session,
-        id: sessionToken,
-    };
-}
-
-export async function findOne(id: string, projection: Projection<Session> = {}): Promise<Session | undefined> {
-    const keys = Object.keys(projection).filter(key => projection[key] === 1);
-    const session: Session = await db('session')
-        .select(keys)
-        .where({ id: sha256(id) })
-        .first();
-    if (!session)
-        return undefined;
-    return {
-        ...session,
-        id: id,
+    constructor(data?: Partial<Session>) {
+        if (data) {
+            Object.assign(this, data);
+            if (!this.id)
+                this.id = uuidv4();
+        }
     }
-}
 
-export async function removeOne(id: string): Promise<boolean> {
-    const deleteCount = await db('session')
-        .where({ id: sha256(id) })
-        .delete();
-    return deleteCount === 1;
-}
-
-function sha256(s: string) {
-    return crypto.createHash('sha256').update(s).digest('base64');
 }

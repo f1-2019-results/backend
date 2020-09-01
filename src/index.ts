@@ -1,19 +1,10 @@
-import knex from 'knex';
 require('dotenv').config();
+import { initDb } from './db';
 import app from './app';
-import knexFile from './db/knexfile';
-import db, { resetDb } from './db';
-import * as User from './models/User';
 
-
-
-async function t() {
-    await resetDb();
+async function init() {
+    await initDb();
+    app.listen(process.env.PORT || 3000);
 }
 
-t().catch(err => {
-    console.error(err);
-    process.exit(1);
-})
-
-app.listen(process.env.PORT || 3000);
+init();

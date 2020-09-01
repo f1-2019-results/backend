@@ -7,7 +7,7 @@ export default class RaceLap {
 
     @PrimaryGeneratedColumn()
     id: number;
-    @Column('number')
+    @Column('integer')
     lapnum: number;
     @Column('double precision', { array: true })
     sectors: number[];

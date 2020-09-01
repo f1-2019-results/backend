@@ -1,6 +1,4 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
-import { v4 as uuidv4 } from 'uuid';
-import Game from './Game';
 import Race from './Race';
 import User from './User';
 
@@ -9,13 +7,13 @@ export default class RaceResult {
 
     @PrimaryGeneratedColumn()
     id: number;
-    @Column({ type: 'string' })
+    @Column()
     driverName: string;
     @Column({ type: 'boolean' })
     isAi: boolean;
-    @Column('number')
+    @Column('integer')
     position: number;
-    @Column('number')
+    @Column('integer')
     points: number;
 
     @ManyToOne(() => Race, race => race.results)

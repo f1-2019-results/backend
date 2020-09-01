@@ -1,23 +1,19 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
-import { v4 as uuidv4 } from 'uuid';
 import Race from './Race';
 
 @Entity()
-export default class Track {
+export default class Game {
 
     @PrimaryGeneratedColumn()
     id: number;
-    @Column({ type: 'uuid' })
-    uid: string;
-    @Column({ type: 'string' })
+    @Column()
     name: string;
 
-    @OneToMany(() => Race, race => race.track)
+    @OneToMany(() => Race, race => race.game)
     races?: Race[];
 
     constructor(data?: { name: string }) {
         if (data) {
-            this.uid = uuidv4();
             this.name = data.name;
         }
     }

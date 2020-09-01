@@ -1,7 +1,7 @@
 {
     "compilerOptions": {
         "target": "esnext",
-        "module": "commonjs",
+        "module": "CommonJS",
         "moduleResolution": "node",
         "baseUrl": "src",
         "esModuleInterop": true,
@@ -9,5 +9,6 @@
         "sourceMap": true,
         "outDir": "build",
         "experimentalDecorators": true,
+        "emitDecoratorMetadata": true
     },
 }

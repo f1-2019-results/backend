@@ -1,31 +1,34 @@
-import db from '../db';
-import * as uuid from 'uuid';
-import Projection from './Projection';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
+import { v4 as uuidv4 } from 'uuid';
+import Session from './Session';
 
-export interface UserData {
+@Entity()
+export default class User {
+
+    @PrimaryGeneratedColumn()
     id: number;
+    @Column('uuid')
     uid: string;
-    createdAt: Date;
+    @Column()
     username: string;
+    @Column()
     email: string;
+    @Column({ select: false })
     passwordHash: string;
-}
+    @Column({ type: 'date' })
+    createdAt: Date;
 
-export async function create(user: Omit<UserData, 'id' | 'uid' | 'createdAt'>): Promise<UserData> {
-    const newUser: Omit<UserData, 'id'> = {
-        uid: uuid.v4(),
-        createdAt: new Date(),
-        ...user,
-    };
+    @OneToMany(() => Session, session => session.user)
+    sessions?: Session[];
 
-    const ids = await db('user').insert(newUser, 'id');
-    return { ...newUser, id: ids[0] };
-}
+    constructor(data?: { username: string, email: string, passwordHash: string }) {
+        if (data) {
+            this.uid = uuidv4();
+            this.createdAt = new Date();
+            this.username = data.username;
+            this.passwordHash = data.passwordHash;
+            this.email = data.email;
+        }
+    }
 
-export async function findOne(filter: Partial<UserData>, projection: Projection<UserData> = {}): Promise<UserData | undefined> {
-    const keys = Object.keys(projection);
-    return db('user')
-        .select(keys)
-        .where(filter)
-        .first();
 }

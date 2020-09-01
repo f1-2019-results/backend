@@ -1,10 +1,11 @@
 import joi from 'joi';
 import { Request, Response, NextFunction } from 'express';
 import bcrypt from 'bcrypt';
-import * as User from '../../models/User';
-import * as Session from '../../models/Session';
+import User from '../../models/User';
+import Session from '../../models/Session';
 import config from '../../config';
 import asyncRequestHandler from '../../util/asyncRequestHandler';
+import db from '../../db';
 
 interface LoginBody {
     username: string;
@@ -22,17 +23,18 @@ export default asyncRequestHandler(async (req: Request, res: Response) => {
         throw new Error(error.message);
     const body = value as LoginBody;
 
-    const user = await User.findOne({ username: body.username });
+    const user = await db.users.findOne({ username: body.username });
     if (!user)
         return res.status(403).json({ error: 'User does not exist' });
     if (!await bcrypt.compare(body.password, user.passwordHash))
         return res.status(403).json({ error: 'Incorrect password' });
 
-    const session = await Session.create({
+    const session = await db.sessions.save(new Session({
         createdAt: new Date(),
         expiresAt: new Date(Date.now() + config.defaultSessionLength),
         userId: user.id,
-    });
+    }));
+
     res.json({
         data: {
             session,
