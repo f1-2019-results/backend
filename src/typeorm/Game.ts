@@ -1,5 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToOne } from "typeorm";
-import { v4 as uuidv4 } from 'uuid';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 import { Race } from './Race';
 
 @Entity()
@@ -10,11 +9,13 @@ export class Game {
     @Column('string')
     name: string;
 
-    @OneToMany(type => Race, race => race.game)
+    @OneToMany(() => Race, race => race.game)
     races: Race[];
 
-    constructor() {
-
+    constructor(data?: { name: string }) {
+        if (data) {
+            this.name = data.name;
+        }
     }
 
 }

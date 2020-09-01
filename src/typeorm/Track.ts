@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToOne } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 import { v4 as uuidv4 } from 'uuid';
 import { Race } from './Race';
 
@@ -7,19 +7,19 @@ export class Track {
 
     @PrimaryGeneratedColumn()
     id: number;
-
-    @Column('uuid')
+    @Column({ type: 'uuid', nullable: false })
     uid: string;
-
-    @Column('string')
+    @Column({ type: 'string', nullable: false })
     name: string;
 
-    @OneToMany(type => Race, race => race.track)
+    @OneToMany(() => Race, race => race.track)
     races: Race[];
 
-
-    constructor() {
-        this.uid = uuidv4();
+    constructor(data?: { name: string }) {
+        if (data) {
+            this.uid = uuidv4();
+            this.name = data.name;
+        }
     }
 
 }

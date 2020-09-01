@@ -1,7 +1,8 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToOne } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany } from 'typeorm';
 import { v4 as uuidv4 } from 'uuid';
-import { Track } from "./Track";
+import { Track } from './Track';
 import { Game } from './Game';
+import { RaceResult } from './RaceResult';
 
 @Entity()
 export class Race {
@@ -13,13 +14,20 @@ export class Race {
     @Column('date')
     startTime: Date;
 
-    @ManyToOne(type => Track, track => track.races)
+    @ManyToOne(() => Track, track => track.races)
     track: Track;
-    @ManyToOne(type => Game, game => game.races)
-    game: Track;
+    @ManyToOne(() => Game, game => game.races)
+    game: Game;
+    @OneToMany(() => RaceResult, result => result.race)
+    results: RaceResult[];
 
-    constructor() {
-        this.uid = uuidv4();
+    constructor(data?: {
+        startTime: Date,
+    }) {
+        if (data) {
+            this.uid = uuidv4();
+            this.startTime = data.startTime;
+        }
     }
 
 }
