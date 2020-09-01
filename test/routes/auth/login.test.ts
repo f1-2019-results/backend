@@ -22,7 +22,7 @@ describe('login action', () => {
         await db.users.save(new User((exampleUser())));
     })
 
-    it.only('returns session with valid credentials', async () => {
+    it('returns session with valid credentials', async () => {
         const res = await request(app)
             .post('/auth/login')
             .send({

@@ -23,7 +23,8 @@ export default asyncRequestHandler(async (req: Request, res: Response) => {
         throw new Error(error.message);
     const body = value as LoginBody;
 
-    const user = await db.users.findOne({ username: body.username });
+    // passwordHash must be selected explicitly
+    const user = await db.users.findOne({ username: body.username }, { select: ['id', 'passwordHash'] });
     if (!user)
         return res.status(403).json({ error: 'User does not exist' });
     if (!await bcrypt.compare(body.password, user.passwordHash))
@@ -32,7 +33,7 @@ export default asyncRequestHandler(async (req: Request, res: Response) => {
     const session = await db.sessions.save(new Session({
         createdAt: new Date(),
         expiresAt: new Date(Date.now() + config.defaultSessionLength),
-        userId: user.id,
+        user,
     }));
 
     res.json({

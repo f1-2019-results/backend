@@ -13,6 +13,7 @@ export default class User {
     username: string;
     @Column()
     email: string;
+    // passwordHash will not be seleccted by default, to avoid accidentally leaking it
     @Column({ select: false })
     passwordHash: string;
     @Column({ type: 'date' })

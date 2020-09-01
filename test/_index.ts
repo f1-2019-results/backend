@@ -1,5 +1,6 @@
 import dotenv from 'dotenv';
 dotenv.config();
+process.env.NODE_ENV = 'test';
 import config from '../src/config';
 import db, { resetDb, initDb } from '../src/db';
 import chai from 'chai';
