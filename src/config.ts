@@ -6,4 +6,4 @@ export default {
     bcryptWorkFactor: 12,
     sessionTokenBytes: 16,
     defaultSessionLength: 1000 * 60 * 60 * 24,
-}
+};

@@ -1,7 +1,8 @@
 import request from 'supertest';
 import bcrypt from 'bcrypt';
 import app from '../../../src/app';
-import * as User from '../../../src/models/User';
+import User from '../../../src/models/User';
+import db from '../../../src/db';
 import { expect } from '../../_index';
 
 describe('login action', () => {
@@ -18,7 +19,7 @@ describe('login action', () => {
     });
 
     beforeEach(async () => {
-        await User.create(exampleUser());
+        await db.users.save(new User((exampleUser())));
     })
 
     it('returns session with valid credentials', async () => {
