@@ -1,9 +1,9 @@
 import { Entity, Column, ManyToOne } from 'typeorm';
 import { v4 as uuidv4 } from 'uuid';
-import { User } from './User';
+import User from './User';
 
 @Entity()
-export class Session {
+export default class Session {
 
     @Column({ type: 'uuid', primary: true })
     id: string;

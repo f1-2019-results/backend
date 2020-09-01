@@ -1,9 +1,9 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 import { v4 as uuidv4 } from 'uuid';
-import { Session } from './Session';
+import Session from './Session';
 
 @Entity()
-export class User {
+export default class User {
 
     @PrimaryGeneratedColumn()
     id: number;

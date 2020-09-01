@@ -1,11 +1,11 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
 import { v4 as uuidv4 } from 'uuid';
-import { Game } from './Game';
-import { Race } from './Race';
-import { User } from './User';
+import Game from './Game';
+import Race from './Race';
+import User from './User';
 
 @Entity()
-export class RaceResult {
+export default class RaceResult {
 
     @PrimaryGeneratedColumn()
     id: number;

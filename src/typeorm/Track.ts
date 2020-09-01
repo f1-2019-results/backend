@@ -1,9 +1,9 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 import { v4 as uuidv4 } from 'uuid';
-import { Race } from './Race';
+import Race from './Race';
 
 @Entity()
-export class Track {
+export default class Track {
 
     @PrimaryGeneratedColumn()
     id: number;

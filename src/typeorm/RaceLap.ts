@@ -1,9 +1,9 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, BeforeInsert, BeforeUpdate } from 'typeorm';
-import { Race } from './Race';
-import { User } from './User';
+import Race from './Race';
+import User from './User';
 
 @Entity()
-export class RaceResult {
+export default class RaceLap {
 
     @PrimaryGeneratedColumn()
     id: number;
@@ -22,7 +22,7 @@ export class RaceResult {
     user?: User | null;
 
 
-    constructor(data?: RaceResult) {
+    constructor(data?: RaceLap) {
         if (data) {
             Object.assign(this, data);
         }
