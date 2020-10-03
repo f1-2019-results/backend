@@ -5,11 +5,12 @@
   "main": "./src/index.js",
   "scripts": {
     "start": "ts-node ./src/index.ts",
-    "build": "tsc --p ./tsconfig.json",
+    "build": "npm run clean && tsc --p ./tsconfig.json",
     "lint": "eslint .",
     "lintfix": "eslint . --fix",
     "test": "mocha -r ts-node/register test/**/*.ts --exit",
-    "coverage": "tsc && nyc --reporter=text --reporter=html --reporter=lcov mocha"
+    "coverage": "npm run clean && nyc --reporter=text --reporter=html --reporter=lcov mocha",
+    "clean": "rimraf -rf ./build/**"
   },
   "repository": {
     "type": "git",
@@ -27,6 +28,7 @@
     "express": "^4.17.1",
     "joi": "^14.3.1",
     "pg": "^8.2.1",
+    "rimraf": "^3.0.2",
     "typeorm": "^0.2.25",
     "uuid": "^8.1.0"
   },
