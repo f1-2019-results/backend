@@ -20,7 +20,7 @@ describe('login action', () => {
 
     beforeEach(async () => {
         await db.users.save(new User((exampleUser())));
-    })
+    });
 
     it('returns session with valid credentials', async () => {
         const res = await request(app)
