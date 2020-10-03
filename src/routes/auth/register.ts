@@ -32,7 +32,11 @@ export default asyncRequestHandler(async (req: Request, res: Response) => {
         email: 'test',
         passwordHash: await bcrypt.hash(body.password, config.bcryptWorkFactor),
     }));
-    delete user.passwordHash;
+
+    const userData = {
+        ...user,
+        passwordHash: undefined,
+    };
 
     const session = await db.sessions.save(new Session({
         createdAt: new Date(),
@@ -41,7 +45,7 @@ export default asyncRequestHandler(async (req: Request, res: Response) => {
     }));
     res.json({
         data: {
-            user,
+            user: userData,
             session
         }
     });
