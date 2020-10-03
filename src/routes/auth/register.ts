@@ -26,7 +26,8 @@ export default asyncRequestHandler(async (req: Request, res: Response) => {
 
     const existingUser = await db.users.findOne({ username: body.username });
     if (existingUser)
-        throw new Error('Username already in use');
+        return res.status(422).json({ error: 'Username is already in use' });
+
     const user = await db.users.save(new User({
         username: body.username,
         email: 'test',
