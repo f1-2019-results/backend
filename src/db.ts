@@ -36,10 +36,12 @@ export async function resetDb(): Promise<void> {
 }
 
 export async function initDb(): Promise<void> {
-    console.log(process.env.PG_URL);
+    const pgUrl = process.env.NODE_ENV === 'test' ? process.env.PG_URL_TEST : process.env.PG_URL;
+
+    console.log(pgUrl);
     const connection = await createConnection({
         type: 'postgres',
-        url: process.env.PG_URL,
+        url: pgUrl,
         entities: [Game, Race, RaceLap, RaceResult, Session, Track, User],
     });
     await connection.synchronize();
