@@ -8,7 +8,7 @@
     "build": "npm run clean && tsc --p ./tsconfig.json",
     "lint": "eslint .",
     "lintfix": "eslint . --fix",
-    "test": "mocha  -r tsconfig-paths/register -r ts-node/register test/**/*.ts --exit",
+    "test": "mocha test/**/*.ts --exit",
     "coverage": "npm run clean && nyc --reporter=text --reporter=html --reporter=lcov mocha",
     "clean": "rimraf -rf ./build/**"
   },
