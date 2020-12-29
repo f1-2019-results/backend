@@ -30,6 +30,9 @@ export default class RaceLap {
 
     @BeforeInsert()
     @BeforeUpdate()
+    /**
+     * TODO: Could this be done in db?
+     */
     setLaptime(): void {
         if (this.sectors.every(v => v !== null)) {
             this.laptime = this.sectors.reduce((prev, acc) => prev + acc);
