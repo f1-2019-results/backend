@@ -55,7 +55,7 @@ export default asyncRequestHandler(async (req: Request, res: Response) => {
             })),
         })),
     };
-    
+
     const race = new Race(raceData);
     console.log(race.id);
     const createdRace = await db.races.save(race);

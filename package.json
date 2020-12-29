@@ -4,11 +4,11 @@
   "description": "",
   "main": "./src/index.js",
   "scripts": {
-    "start": "ts-node ./src/index.ts",
+    "start": "node -r tsconfig-paths/register -r ts-node/register ./src/index.ts",
     "build": "npm run clean && tsc --p ./tsconfig.json",
     "lint": "eslint .",
     "lintfix": "eslint . --fix",
-    "test": "mocha -r ts-node/register test/**/*.ts --exit",
+    "test": "mocha  -r tsconfig-paths/register -r ts-node/register test/**/*.ts --exit",
     "coverage": "npm run clean && nyc --reporter=text --reporter=html --reporter=lcov mocha",
     "clean": "rimraf -rf ./build/**"
   },
@@ -29,6 +29,7 @@
     "joi": "^14.3.1",
     "pg": "^8.2.1",
     "rimraf": "^3.0.2",
+    "tsconfig-paths": "^3.9.0",
     "typeorm": "^0.2.25",
     "uuid": "^8.1.0"
   },
