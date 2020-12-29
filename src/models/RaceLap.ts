@@ -22,6 +22,7 @@ export default class RaceLap {
     constructor(data?: Partial<RaceLap>) {
         if (data) {
             Object.assign(this, data);
+            this.calculateLapTime();
         }
     }
 
@@ -30,7 +31,7 @@ export default class RaceLap {
     /**
      * TODO: Could this be done in db?
      */
-    setLaptime(): void {
+    calculateLapTime(): void {
         if (this.sectors.every(v => v !== null)) {
             this.laptime = this.sectors.reduce((prev, acc) => prev + acc);
         } else {
