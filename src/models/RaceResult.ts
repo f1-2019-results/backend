@@ -1,5 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany } from 'typeorm';
 import Race from './Race';
+import RaceLap from './RaceLap';
 import User from './User';
 
 @Entity()
@@ -20,7 +21,8 @@ export default class RaceResult {
     race?: Race;
     @ManyToOne(() => User)
     user?: User;
-
+    @OneToMany(() => RaceLap, lap => lap.raceResult)
+    laps?: Array<RaceLap>;
 
     constructor(data?: RaceResult) {
         if (data) {
