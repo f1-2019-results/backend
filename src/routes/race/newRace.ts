@@ -59,10 +59,8 @@ export default asyncRequestHandler(async (req: Request, res: Response) => {
     };
 
     const race = new Race(raceData);
-    console.log(race.id);
-    const createdRace = await db.races.save(race);
-    console.log(createdRace.id);
-    res.json(createdRace);
+    await db.races.save(race);
+    res.json(race);
 });
 
 interface NewRaceBody {
