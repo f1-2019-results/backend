@@ -24,13 +24,13 @@ export default db;
 export async function resetDb(): Promise<void> {
     await getConnection().transaction(async manager => {
         await Promise.all([
-            manager.delete(Game, {}),
-            manager.delete(Race, {}),
             manager.delete(RaceLap, {}),
             manager.delete(RaceResult, {}),
+            manager.delete(Race, {}),
             manager.delete(Session, {}),
             manager.delete(Track, {}),
             manager.delete(User, {}),
+            manager.delete(Game, {}),
         ]);
     });
 }
