@@ -10,3 +10,9 @@ export class AuthenticationError extends Error {
         super(message);
     }
 }
+
+export class InvalidRequestError extends Error {
+    constructor(message: string) {
+        super(message);
+    }
+}
