@@ -1,4 +1,4 @@
-export const tracks = {
+const tracks = {
     'F1 2019': {
         0: 'Melbourne',
         1: 'Paul Ricard',
@@ -27,3 +27,5 @@ export const tracks = {
         24: 'Suzuka short',
     }
 };
+
+export default tracks;

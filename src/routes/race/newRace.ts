@@ -1,11 +1,13 @@
 import joi from 'joi';
-import RaceResult from '../../models/RaceResult';
-import { ValidationError, InvalidRequestError } from '../../errors';
-import asyncRequestHandler from '../../util/asyncRequestHandler';
 import { Request, Response } from 'express';
-import db from '../../db';
+
+import { ValidationError, InvalidRequestError } from 'errors';
+import asyncRequestHandler from 'util/asyncRequestHandler';
+import db from 'db';
 import RaceLap from 'models/RaceLap';
 import Race from 'models/Race';
+import RaceResult from 'models/RaceResult';
+import trackList from 'data/trackList';
 
 const newRaceValidator = joi.object().keys({
     startTime: joi.string().isoDate(),
@@ -35,7 +37,7 @@ export default asyncRequestHandler(async (req: Request, res: Response) => {
     const game = await db.games.findOne({ where: { name: body.game } });
     if (!game)
         throw new InvalidRequestError(`Game "${body.game}" not found`);
-    const track = await db.tracks.findOne({ where: { id: body.trackId } });
+    const track = await db.tracks.findOne({ where: { name: trackList[body.trackId] } });
     if (!game)
         throw new InvalidRequestError(`Track "${body.trackId}" not found`);
 
