@@ -1,12 +1,18 @@
 import dotenv from 'dotenv';
-dotenv.config();
 process.env.NODE_ENV = 'test';
-import config from '../src/config';
-import db, { resetDb, initDb } from '../src/db';
+dotenv.config();
+
 import chai from 'chai';
 import chaiAsPromised from 'chai-as-promised';
+import bcrypt from 'bcrypt';
+
+import { } from './customSupertest';
+import config from '../src/config';
+import db, { resetDb, initDb } from '../src/db';
 import Game from '../src/models/Game';
 import Track from '../src/models/Track';
+import User from '../src/models/User';
+
 const should = chai.should();
 const expect = chai.expect;
 chai.use(chaiAsPromised);
@@ -25,10 +31,17 @@ const defaultConfig: Partial<typeof config> = {
     }
 };
 
+export const testUser = {
+    email: 'test@test.com',
+    passwordHash: bcrypt.hashSync('password', 4),
+    username: 'testUser',
+};
+
 beforeEach(async function () {
     await resetDb();
     await db.games.save(new Game({ name: 'F1 2019' }));
-    await db.tracks.save(new Track({ name: 'Monaco' }));
+    await db.tracks.save(new Track({ name: 'Melbourne' }));
+    await db.users.save(new User(testUser));
     Object.assign(config, defaultConfig);
 });
 
