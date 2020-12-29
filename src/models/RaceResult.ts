@@ -24,7 +24,7 @@ export default class RaceResult {
     @OneToMany(() => RaceLap, lap => lap.raceResult)
     laps?: Array<RaceLap>;
 
-    constructor(data?: RaceResult) {
+    constructor(data?: Partial<RaceResult>) {
         if (data) {
             Object.assign(this, data);
         }

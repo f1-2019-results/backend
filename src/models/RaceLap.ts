@@ -1,7 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, BeforeInsert, BeforeUpdate } from 'typeorm';
 import Race from './Race';
 import RaceResult from './RaceResult';
-import User from './User';
 
 @Entity()
 export default class RaceLap {
@@ -20,7 +19,7 @@ export default class RaceLap {
     @ManyToOne(() => RaceResult, raceResult => raceResult.laps)
     raceResult?: Race;
 
-    constructor(data?: RaceLap) {
+    constructor(data?: Partial<RaceLap>) {
         if (data) {
             Object.assign(this, data);
         }

@@ -21,12 +21,10 @@ export default class Race {
     @OneToMany(() => RaceResult, result => result.race)
     results?: RaceResult[];
 
-    constructor(data?: {
-        startTime: Date,
-    }) {
+    constructor(data?: Partial<Race>) {
         if (data) {
+            Object.assign(this, data);
             this.uid = uuidv4();
-            this.startTime = data.startTime;
         }
     }
 
