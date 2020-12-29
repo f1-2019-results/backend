@@ -48,7 +48,7 @@ describe('new race route', () => {
         ]
     });
 
-    it.only('creates race with valid payload', async () => {
+    it('creates race with valid payload', async () => {
         await request(app)
             .post('/race/')
             .send(testRaceData())
