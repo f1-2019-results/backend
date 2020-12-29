@@ -18,7 +18,7 @@ export default class Race {
     track?: Track;
     @ManyToOne(() => Game, game => game.races)
     game?: Game;
-    @OneToMany(() => RaceResult, result => result.race)
+    @OneToMany(() => RaceResult, result => result.race, { cascade: ['insert', 'remove'] })
     results?: RaceResult[];
 
     constructor(data?: Partial<Race>) {

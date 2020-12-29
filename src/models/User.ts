@@ -19,7 +19,7 @@ export default class User {
     @Column({ type: 'date' })
     createdAt: Date;
 
-    @OneToMany(() => Session, session => session.user)
+    @OneToMany(() => Session, session => session.user, { cascade: ['remove'] })
     sessions?: Session[];
 
     constructor(data?: { username: string, email: string, passwordHash: string }) {
