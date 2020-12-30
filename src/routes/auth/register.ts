@@ -19,7 +19,7 @@ const registerReqValidator = joi.object().keys({
 }).strict().options({ abortEarly: false, presence: 'required', });
 
 export default asyncRequestHandler(async (req: Request, res: Response) => {
-    const { value, error } = joi.validate(req.body, registerReqValidator);
+    const { value, error } = registerReqValidator.validate(req.body);
     if (error)
         throw new ValidationError(error.message);
     const body = value as RegisterBody;

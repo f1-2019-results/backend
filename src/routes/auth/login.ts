@@ -17,7 +17,7 @@ const loginBodyValidator = joi.object().keys({
 }).strict().options({ abortEarly: false, presence: 'required', });
 
 export default asyncRequestHandler(async (req: Request, res: Response) => {
-    const { value, error } = joi.validate(req.body, loginBodyValidator);
+    const { value, error } = loginBodyValidator.validate(req.body);
     if (error)
         throw new Error(error.message);
     const body = value as LoginBody;

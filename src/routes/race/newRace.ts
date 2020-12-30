@@ -29,7 +29,7 @@ const newRaceValidator = joi.object().keys({
 }).strict().options({ abortEarly: false, presence: 'required', });
 
 export default asyncRequestHandler(async (req: Request, res: Response) => {
-    const { value, error } = joi.validate(req.body, newRaceValidator);
+    const { value, error } = newRaceValidator.validate(req.body);
     if (error)
         throw new ValidationError(error.message);
     const body = value as NewRaceBody;
