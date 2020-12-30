@@ -37,8 +37,8 @@ export default asyncRequestHandler(async (req: Request, res: Response) => {
     const game = await db.games.findOne({ where: { name: body.game } });
     if (!game)
         throw new InvalidRequestError(`Game "${body.game}" not found`);
-    const track = await db.tracks.findOne({ where: { name: trackList[body.trackId] } });
-    if (!game)
+    const track = await db.tracks.findOne({ where: { name: trackList[body.game][body.trackId] } });
+    if (!track)
         throw new InvalidRequestError(`Track "${body.trackId}" not found`);
 
     const raceData = {
