@@ -6,6 +6,7 @@ const testRaceData = () => ({
         {
             driverName: 'Max Verstappen',
             isAi: true,
+            startPosition: 2,
             position: 1,
             points: 25,
             laps: [
@@ -24,6 +25,7 @@ const testRaceData = () => ({
         {
             driverName: 'Lewis Hamilton',
             isAi: true,
+            startPosition: 1,
             position: 2,
             points: 18,
             laps: [

@@ -13,6 +13,8 @@ export default class RaceResult {
     @Column({ type: 'boolean' })
     isAi: boolean;
     @Column('integer')
+    startPosition: number;
+    @Column('integer')
     position: number;
     @Column('integer')
     points: number;

@@ -17,6 +17,7 @@ const newRaceValidator = joi.object().keys({
         joi.object().keys({
             driverName: joi.string(),
             isAi: joi.boolean(),
+            startPosition: joi.number(),
             position: joi.number(),
             points: joi.number(),
             laps: joi.array().items(joi.object().keys({
@@ -48,6 +49,7 @@ export default asyncRequestHandler(async (req: Request, res: Response) => {
         results: body.results.map(resultData => new RaceResult({
             driverName: resultData.driverName,
             isAi: resultData.isAi,
+            startPosition: resultData.startPosition,
             position: resultData.position,
             points: resultData.points,
             laps: resultData.laps.map((lapData, lapNum) => new RaceLap({
@@ -71,6 +73,7 @@ interface NewRaceBody {
         driverId: string
         driverName: string
         isAi: boolean
+        startPosition: number
         position: number
         points: number
         laps: Array<{
