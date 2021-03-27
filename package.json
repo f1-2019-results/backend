@@ -9,7 +9,7 @@
     "lint": "eslint .",
     "lintfix": "eslint . --fix",
     "test": "mocha test/**/*.ts --exit",
-    "coverage": "npm run clean && nyc --reporter=text --reporter=html --reporter=lcov mocha",
+    "coverage": "npm run clean && nyc --reporter=text --reporter=html --reporter=lcov mocha test/**/*.ts",
     "clean": "rimraf -rf ./build/**"
   },
   "repository": {
