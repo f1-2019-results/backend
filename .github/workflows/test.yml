@@ -29,7 +29,7 @@ jobs:
       run: npm run lint
     - run: npm run coverage
       env:
-        PG_URL_TEST: postgresql://user:pass@localhost:5432/postgres 
+        DATABASE_URL_TEST: postgresql://user:pass@localhost:5432/postgres 
     - uses: codecov/codecov-action@v1
       with:
         token: ${{secrets.CODECOV_TOKEN}}

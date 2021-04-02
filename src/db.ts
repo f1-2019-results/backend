@@ -37,7 +37,7 @@ export async function resetDb(): Promise<void> {
 }
 
 export async function initDb(): Promise<void> {
-    const pgUrl = process.env.NODE_ENV === 'test' ? process.env.PG_URL_TEST : process.env.PG_URL;
+    const pgUrl = process.env.NODE_ENV === 'test' ? process.env.DATABASE_URL_TEST : process.env.DATABASE_URL;
 
     console.log(pgUrl);
     const connection = await createConnection({
