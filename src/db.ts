@@ -46,9 +46,9 @@ export async function initDb(): Promise<void> {
         entities: [Game, Race, RaceLap, RaceResult, Session, Track, User],
         ssl: process.env.HEROKU === 'true',
         extra: {
-            ssl: {
+            ssl: process.env.HEROKU === 'true' ? {
                 rejectUnauthorized: false
-            }
+            } : undefined
         }
     });
     await connection.synchronize();
