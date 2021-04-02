@@ -45,6 +45,11 @@ export async function initDb(): Promise<void> {
         url: pgUrl,
         entities: [Game, Race, RaceLap, RaceResult, Session, Track, User],
         ssl: process.env.HEROKU === 'true',
+        extra: {
+            ssl: {
+                rejectUnauthorized: false
+            }
+        }
     });
     await connection.synchronize();
     db.games = connection.getRepository(Game);
