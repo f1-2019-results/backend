@@ -1,5 +1,6 @@
 import { getConnection, createConnection, Repository } from 'typeorm';
 import bcrypt from 'bcrypt';
+import trackList from './data/trackList';
 import Game from './models/Game';
 import Race from './models/Race';
 import RaceLap from './models/RaceLap';
@@ -64,7 +65,9 @@ export async function initDb(): Promise<void> {
     const game = !!await db.games.findOne({ where: { name: 'F1 2019' } });
     if (!game) {
         await db.games.save(new Game({ name: 'F1 2019' }));
-        await db.tracks.save(new Track({ name: 'Melbourne' }));
+        for (const track of Object.values(trackList['F1 2019'])) {
+            await db.tracks.save(new Track({ name: track }));
+        }
         await db.users.save(new User({
             email: 'testuser@test.com',
             username: 'testUser',
