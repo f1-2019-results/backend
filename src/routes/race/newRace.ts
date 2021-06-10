@@ -56,6 +56,7 @@ export default asyncRequestHandler(async (req: Request, res: Response) => {
                 invalid: lapData.invalid,
                 lapnum: lapNum + 1,
                 sectors: lapData.sectors,
+                position: lapData.position,
             })),
         })),
     };
