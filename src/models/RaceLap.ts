@@ -9,6 +9,8 @@ export default class RaceLap {
     id: number;
     @Column('integer')
     lapnum: number;
+    @Column('integer')
+    position: number;
     @Column('double precision', { array: true })
     sectors: number[];
     @Column('double precision', { nullable: true })
