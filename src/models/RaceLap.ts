@@ -34,7 +34,7 @@ export default class RaceLap {
      * TODO: Could this be done in db?
      */
     calculateLapTime(): void {
-        if (this.sectors.every(v => v !== null)) {
+        if (this.sectors.length && this.sectors.every(v => v !== null)) {
             this.laptime = this.sectors.reduce((prev, acc) => prev + acc);
         } else {
             this.laptime = null;
