@@ -8,6 +8,7 @@ import RaceLap from 'models/RaceLap';
 import Race from 'models/Race';
 import RaceResult from 'models/RaceResult';
 import trackList from 'data/trackList';
+import teamList from 'data/teamList';
 
 const newRaceValidator = joi.object().keys({
     startTime: joi.string().isoDate(),
@@ -16,6 +17,7 @@ const newRaceValidator = joi.object().keys({
     results: joi.array().items(
         joi.object().keys({
             driverName: joi.string(),
+            teamId: joi.number(),
             isAi: joi.boolean(),
             startPosition: joi.number(),
             position: joi.number(),
@@ -48,6 +50,7 @@ export default asyncRequestHandler(async (req: Request, res: Response) => {
         game,
         results: body.results.map(resultData => new RaceResult({
             driverName: resultData.driverName,
+            teamName: teamList[resultData.teamId],
             isAi: resultData.isAi,
             startPosition: resultData.startPosition,
             position: resultData.position,
@@ -73,6 +76,7 @@ interface NewRaceBody {
     results: Array<{
         driverId: string
         driverName: string
+        teamId: number
         isAi: boolean
         startPosition: number
         position: number

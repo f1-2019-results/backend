@@ -18,6 +18,8 @@ export default class RaceResult {
     position: number;
     @Column('integer')
     points: number;
+    @Column()
+    teamName: string;
 
     @ManyToOne(() => Race, race => race.results)
     race?: Race;
