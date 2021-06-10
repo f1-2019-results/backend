@@ -9,6 +9,6 @@ export default asyncRequestHandler(async (req: Request, res: Response) => {
         relations: ['track', 'game', 'results', 'results.laps']
     });
     if (!race)
-        res.status(404).end();
-    return res.json(race);
+        return res.status(404).end();
+    res.json(race);
 });
