@@ -27,6 +27,7 @@ const newRaceValidator = joi.object().keys({
                 sectors: joi.array().items(joi.number()),
                 position: joi.number(),
                 invalid: joi.boolean(),
+                pit: joi.boolean().optional().default(false),
             }))
         })
     ),
@@ -62,6 +63,7 @@ export default asyncRequestHandler(async (req: Request, res: Response) => {
                 lapnum: lapNum + 1,
                 sectors: lapData.sectors,
                 position: lapData.position,
+                pit: lapData.pit,
             })),
         })),
     };
@@ -88,6 +90,7 @@ interface NewRaceBody {
             sectors: Array<number>
             position: number
             invalid: boolean
+            pit: boolean
         }>
     }>
 }

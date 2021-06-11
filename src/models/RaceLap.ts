@@ -17,6 +17,8 @@ export default class RaceLap {
     laptime: number | null = null;
     @Column('boolean')
     invalid: boolean;
+    @Column({ type: 'boolean', default: false, })
+    pit: boolean;
 
     @ManyToOne(() => RaceResult, raceResult => raceResult.laps)
     raceResult?: Race;
