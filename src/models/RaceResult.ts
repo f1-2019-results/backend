@@ -12,6 +12,8 @@ export default class RaceResult {
     driverName: string;
     @Column({ type: 'boolean' })
     isAi: boolean;
+    @Column({ type: 'boolean', default: false })
+    dnf: boolean;
     @Column('integer')
     startPosition: number;
     @Column('integer')
