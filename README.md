@@ -4,5 +4,5 @@
 
 Server is running at https://f1-results.herokuapp.com/
 
-For local development, you can start postgres with `docker run --name tbn-pg-test -e POSTGRES_PASSWORD=docker -e POSTGRES_DB="tobenamed_test" -d -p 5432:5432 postgres`
+For local development, you can start postgres with `docker run --name tbn-pg -e POSTGRES_PASSWORD=docker -e POSTGRES_DB="tobenamed" -d -p 5432:5432 postgres`
 
